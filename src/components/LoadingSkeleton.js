@@ -15,10 +15,11 @@ export function LoadingSkeleton() {
       <Skeleton
         sx={{
           gridArea: "1/1/2/2",
+          ml: 3,
         }}
         animation="wave"
         variant="rectangular"
-        width="100%"
+        width="285px"
         height="120px"
       />
       <Skeleton
@@ -27,7 +28,7 @@ export function LoadingSkeleton() {
         }}
         animation="wave"
         variant="rectangular"
-        width="100%"
+        width="285px"
         height="120px"
       />
       <Skeleton
@@ -36,12 +37,13 @@ export function LoadingSkeleton() {
         }}
         animation="wave"
         variant="rectangular"
-        width="100%"
+        width="285px"
         height="120px"
       />
       <Skeleton
         sx={{
           gridArea: "1/4/6/6",
+          mr: 3,
         }}
         animation="wave"
         variant="rectangular"
@@ -51,10 +53,11 @@ export function LoadingSkeleton() {
       <Skeleton
         sx={{
           gridArea: "2/1/6/4",
+          ml: 3,
         }}
         animation="wave"
         variant="rectangular"
-        width="100%"
+        width="95%"
         height="100%"
       />
     </Box>

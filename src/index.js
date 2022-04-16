@@ -8,11 +8,16 @@ import { configureStore } from "@reduxjs/toolkit"
 import countriesSlice from "./features/CountriesReducer"
 import CountrySlice from "./features/CountryReducer"
 import loadingSlice from "./features/LoadingReducer"
+import mapCenterSlice from "./features/MapCenterReducer"
+import mapZoomReducer from "./features/mapZoomReducer"
+
 const store = configureStore({
   reducer: {
     countries: countriesSlice,
     country: CountrySlice,
     loading: loadingSlice,
+    mapCenter: mapCenterSlice,
+    mapZoom: mapZoomReducer,
   },
 })
 

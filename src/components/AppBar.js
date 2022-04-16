@@ -7,10 +7,13 @@ import { useSelector, useDispatch } from "react-redux"
 import { dataByCountries, worldwideData } from "../Api/Api"
 import { setCountry } from "../features/CountryReducer"
 import { CircularProgress } from "@mui/material"
+import { setMapCenter } from "../features/MapCenterReducer"
+import { setMapZoom } from "../features/mapZoomReducer" 
 
 function Header() {
   const dispatch = useDispatch()
   const countries = useSelector(state => state.countries.value)
+  const country = useSelector(state => state.country.value)
   const isLoading = useSelector(state => state.loading.value)
   React.useEffect(() => {
     async function fetchData() {
@@ -46,13 +49,21 @@ function Header() {
           Covid-19 Tracker
         </Typography>
         <Autocomplete
-          defaultValue="Worldwide"
+          value={isLoading ? null : country}
           disablePortal
           disableClearable
           autoHighlight
           onChange={(event, value) => {
             console.log("country:", value)
             dispatch(setCountry(value))
+            const latitude  = countries.filter(item => item.country === value)[0].countryInfo.lat
+            const longitude = countries.filter(item => item.country === value)[0].countryInfo.long
+            console.log("latitude:", latitude)
+            console.log("longitude:", longitude)
+            dispatch(setMapCenter({latitude, longitude}))
+            //dispatch(setMapCenter(countries.find(c => c.country === value).countryInfo.lat, countries.find(c => c.country === value).countryInfo.long))
+            value === "Worldwide" ? dispatch(setMapZoom(2)) : dispatch(setMapZoom(4))
+            event.target.value = value
           }}
           options={countries.map(option => option.country)}
           renderInput={params => (

@@ -1,26 +1,18 @@
 import React from "react"
-import { Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import InfoBox from "./InfoBox"
 import { LoadingSkeleton } from "./LoadingSkeleton"
 import { useSelector } from "react-redux"
+import CasesList from "./CasesList"
+import Map from "./Map"
 
 export function GridContainer() {
   const country = useSelector(state => state.country.value)
   const countries = useSelector(state => state.countries.value)
   const isLoading = useSelector(state => state.loading.value)
-
-  // if (country !== "Worldwide") {
-  //   countryData = countries.find(item => item.country === country)
-  // } else {
-  //   countryData = {
-  //     active: 123,
-  //     cases: 1234,
-  //     deaths: 12,
-  //     recovered: 12345,
-  //   }
-  // }
-
+  const mapCenter = useSelector(state => state.mapCenter.value)
+  const mapZoom = useSelector(state => state.mapZoom.value)
+  
   React.useEffect(() => {
     // render()
   }, [country])
@@ -33,6 +25,7 @@ export function GridContainer() {
           gridTemplateColumns: "repeat(5, 1fr)",
           gridTemplateRows: "repeat(5, 1fr)",
           gridGap: "25px",
+          ml: 8,
         }}
       >
         <InfoBox
@@ -62,26 +55,24 @@ export function GridContainer() {
           cases={countryData.deaths}
           total={countryData.cases}
         />
-        <Typography
+        <Box
           sx={{
             gridArea: "1/4/6/6",
           }}
         >
-          Worldwide Cases
-        </Typography>
-        <Typography
+          < CasesList />
+        </Box>
+        <Box
           sx={{
             gridArea: "2/1/6/4",
           }}
         >
-          Map here
-        </Typography>
+          <Map countries={countries} center={mapCenter} zoom={mapZoom} />
+        </Box>
         {/* <Map /> */}
       </Box>
     )
   } else {
-    return (
-      <LoadingSkeleton />
-    )
+    return <LoadingSkeleton />
   }
 }
